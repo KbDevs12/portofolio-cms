@@ -1,5 +1,5 @@
 import { Html } from "@elysiajs/html";
-import { DashboardLayout } from "./layout/DashboardLayout";
+import { DashboardLayout } from "../layout/DashboardLayout";
 
 export const ProjectForm = () => (
   <section>

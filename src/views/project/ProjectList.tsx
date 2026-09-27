@@ -1,7 +1,7 @@
 import { Html } from "@elysiajs/html";
-import { DashboardLayout } from "./layout/DashboardLayout";
-import { StatusBadge } from "../components/StatusBadge";
-import type { Project } from "../types";
+import { DashboardLayout } from "../layout/DashboardLayout";
+import { StatusBadge } from "../../components/StatusBadge";
+import type { Project } from "../../types";
 
 interface ProjectProps {
   projects: Project[];

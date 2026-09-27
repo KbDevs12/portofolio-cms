@@ -5,8 +5,8 @@ import { LoginPage } from "./views/Login";
 import { verifyPassword } from "./lib/auth";
 import jwt from "@elysiajs/jwt";
 import { DashboardPage } from "./views/Dashboard";
-import { ProjectList } from "./views/ProjectList";
-import { ProjectForm } from "./views/ProjectForm";
+import { ProjectList } from "./views/project/ProjectList";
+import { ProjectForm } from "./views/project/ProjectForm";
 import { Project } from "./types";
 import { DashboardLayout } from "./views/layout/DashboardLayout";
 
