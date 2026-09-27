@@ -1,4 +1,5 @@
 import { Elysia, redirect, t } from "elysia";
+import { staticPlugin } from "@elysiajs/static";
 import { html, Html } from "@elysiajs/html";
 import { createClient } from "@supabase/supabase-js";
 import { LoginPage } from "./views/Login";
@@ -23,6 +24,12 @@ const app = new Elysia()
     jwt({
       name: "jwt",
       secret: process.env.JWT_SECRET!,
+    }),
+  )
+  .use(
+    staticPlugin({
+      assets: "public",
+      prefix: "",
     }),
   )
 

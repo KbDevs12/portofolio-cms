@@ -1,7 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+@source "../**/*.{ts,tsx,js,jsx,html}";
+
+@theme {
+  --color-ink: #12151a;
+  --color-panel: #1a1e24;
+  --color-paper: #ece7dc;
+  --color-accent: #c08a3e;
+
+  --font-serif: "Newsreader", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+/* ===== IBM Plex Mono (static weights) ===== */
 @font-face {
   font-family: "IBM Plex Mono";
   src: url("/font/IBMPlexMono-Regular.ttf") format("truetype");
@@ -26,6 +37,7 @@
   font-display: swap;
 }
 
+/* ===== Newsreader (variable font, covers wght 400-600) ===== */
 @font-face {
   font-family: "Newsreader";
   src: url("/font/Newsreader-Variable.ttf") format("truetype-variations");
