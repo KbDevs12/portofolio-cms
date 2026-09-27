@@ -3,7 +3,7 @@ import { StatCard } from "../components/StatCard";
 import { SectionHeader } from "../components/SectionHeader";
 import { StatusBadge } from "../components/StatusBadge";
 
-import dayFormat from "../util/dayFormat";
+import { dayFormat } from "../util/dayFormat";
 
 export const DashboardPage = () => (
   <div>
