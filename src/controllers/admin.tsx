@@ -130,7 +130,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
           },
         )
 
-        .delete("/projects/:id/delete", async ({ params: { id } }) => {
+        .post("/projects/:id/delete", async ({ params: { id } }) => {
           const { error: deleteError } = await supabase
             .from("projects")
             .delete()
@@ -216,6 +216,20 @@ export const adminController = new Elysia({ prefix: "/admin" })
               repo_url: t.Optional(t.String()),
               sort_order: t.String(),
             }),
+          },
+        )
+        .post(
+          "/projects/:id/aspects/:aspectId/delete",
+          async ({ params: { id, aspectId } }) => {
+            const { error } = await supabase
+              .from("project_aspects")
+              .delete()
+              .eq("id", aspectId)
+              .eq("project_id", id);
+
+            if (error) return `Gagal menghapus data: ${error.message}`;
+
+            return redirect(`/admin/projects/${id}/aspects`);
           },
         ),
   );
