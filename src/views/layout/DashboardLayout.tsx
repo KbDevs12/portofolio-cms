@@ -5,7 +5,7 @@ import { Header } from "../../components/Header";
 
 interface DashboardLayoutProps {
   title: string;
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[] | string;
   pathname: string;
 }
 

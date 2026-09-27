@@ -6,27 +6,28 @@ interface LoginPageProps {
 }
 
 export const LoginPage = ({ error }: LoginPageProps) => (
-  <Layout title="Login">
-    <main class="min-h-screen bg-black text-white">
+  <Layout title="Masuk">
+    <main class="min-h-screen bg-ink text-paper">
       <div class="mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-12 lg:px-10">
         <div class="grid w-full gap-16 lg:grid-cols-[1fr_420px] lg:items-center">
           <section class="hidden lg:block">
-            <div class="max-w-xl">
-              <h1 class="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight">
-                Welcome
-                <br />
-                back.
-              </h1>
-            </div>
+            <p class="font-mono text-sm text-accent">portofolio.cms</p>
+
+            <h1 class="mt-6 text-5xl font-medium leading-[1.05] tracking-tight">
+              Kelola portofolio
+              <br />
+              dari satu tempat.
+            </h1>
           </section>
+
           <section class="w-full">
             <div class="mb-8">
-              <h2 class="mt-3 text-3xl font-semibold tracking-tight lg:mt-0">
-                Sign in
+              <h2 class="mt-3 text-2xl font-medium tracking-tight lg:mt-0">
+                Masuk ke panel
               </h2>
 
-              <p class="mt-2 text-sm text-white/40">
-                Masukkan password untuk melanjutkan.
+              <p class="mt-2 text-sm text-paper/40">
+                Masukkan kata sandi untuk melanjutkan.
               </p>
             </div>
 
@@ -34,9 +35,9 @@ export const LoginPage = ({ error }: LoginPageProps) => (
               <div>
                 <label
                   for="password"
-                  class="mb-2 block text-xs font-medium uppercase tracking-[0.15em] text-white/45"
+                  class="mb-2 block font-mono text-xs text-paper/45"
                 >
-                  Password
+                  kata sandi
                 </label>
 
                 <div class="relative">
@@ -46,15 +47,15 @@ export const LoginPage = ({ error }: LoginPageProps) => (
                     name="password"
                     placeholder="••••••••"
                     autocomplete="current-password"
-                    class="h-12 w-full border-b border-white/20 bg-transparent px-0 pr-10 text-sm text-white outline-none transition-colors placeholder:text-white/20 focus:border-white"
+                    class="h-12 w-full border-b border-paper/20 bg-transparent px-0 pr-10 text-sm text-paper outline-none transition-colors placeholder:text-paper/20 focus:border-accent"
                     required
                   />
 
                   <button
                     type="button"
                     id="toggle-password"
-                    aria-label="Tampilkan password"
-                    class="absolute right-0 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-white/35 transition-colors hover:text-white"
+                    aria-label="Tampilkan kata sandi"
+                    class="absolute right-0 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-paper/35 transition-colors hover:text-paper"
                   >
                     <svg
                       id="eye-open"
@@ -103,20 +104,16 @@ export const LoginPage = ({ error }: LoginPageProps) => (
               </div>
 
               {error && (
-                <div class="border-l border-red-500/70 pl-3">
+                <div class="border-l-2 border-red-500/70 pl-3">
                   <p class="text-xs leading-5 text-red-400">{error}</p>
                 </div>
               )}
 
               <button
                 type="submit"
-                class="group flex h-12 w-full items-center justify-between border border-white/20 px-4 text-sm font-medium transition-all duration-200 hover:border-white hover:bg-white hover:text-black"
+                class="flex h-12 w-full items-center justify-center border border-paper/20 font-mono text-sm transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-ink"
               >
-                <span>Continue</span>
-
-                <span class="text-lg transition-transform duration-200 group-hover:translate-x-1">
-                  →
-                </span>
+                Masuk
               </button>
             </form>
           </section>
@@ -146,8 +143,8 @@ export const LoginPage = ({ error }: LoginPageProps) => (
               button.setAttribute(
                 "aria-label",
                 visible
-                  ? "Tampilkan password"
-                  : "Sembunyikan password"
+                  ? "Tampilkan kata sandi"
+                  : "Sembunyikan kata sandi"
               );
             });
           })();

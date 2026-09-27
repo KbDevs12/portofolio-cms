@@ -1,136 +1,105 @@
 import { Html } from "@elysiajs/html";
-import { Layout } from "./Layout";
-
-import { Sidebar } from "../components/Sidebar";
-import { Header } from "../components/Header";
 import { StatCard } from "../components/StatCard";
 import { SectionHeader } from "../components/SectionHeader";
 import { StatusBadge } from "../components/StatusBadge";
 
+import dayFormat from "../util/dayFormat";
+
 export const DashboardPage = () => (
-  <Layout title="Dashboard">
-    <div class="min-h-screen">
-      <div class="mx-auto flex">
-        <Sidebar />
+  <div>
+    <section class="mb-10">
+      <p class="font-mono text-[12px] text-paper/35">{dayFormat(new Date())}</p>
 
-        <div class="min-w-0 flex-1">
-          <Header />
+      <h1 class="mt-2 text-2xl font-medium tracking-tight text-paper">
+        Ringkasan portofolio
+      </h1>
 
-          <main class="px-6 py-10 lg:px-8">
-            <section class="mb-10">
-              <p class="text-[10px] font-medium uppercase tracking-widest text-white/30">
-                Dasbor
-              </p>
+      <p class="mt-2 max-w-xl text-sm leading-6 text-paper/50">
+        Kelola profil, proyek, dan pengalaman yang tampil di portofolio Anda.
+      </p>
+    </section>
 
-              <h1 class="mt-2 text-3xl font-semibold tracking-tight">
-                Selamat datang kembali.
-              </h1>
+    <section class="mb-12 flex divide-x divide-paper/10 border-y border-paper/10">
+      <StatCard
+        label="profil"
+        value="01"
+        description="profil aktif"
+        href="/admin/profil"
+      />
 
-              <p class="mt-2 max-w-xl text-sm leading-6 text-white/40">
-                Kelola informasi profil, proyek, dan pengalaman yang ditampilkan
-                pada portofolio Anda.
-              </p>
-            </section>
+      <StatCard
+        label="proyek"
+        value="06"
+        description="proyek tersimpan"
+        href="/admin/projects"
+      />
 
-            <section class="grid overflow-hidden rounded-xl border border-white/10 bg-white/10 md:grid-cols-3">
-              <StatCard
-                label="Profil"
-                value="01"
-                description="profil aktif"
-                href="/admin/profile"
-              />
+      <StatCard
+        label="pengalaman"
+        value="03"
+        description="riwayat kerja"
+        href="/admin/experience"
+      />
+    </section>
 
-              <StatCard
-                label="Proyek"
-                value="06"
-                description="proyek tersimpan"
-                href="/admin/projects"
-              />
+    <section class="mt-12">
+      <SectionHeader title="Proyek terbaru" href="/admin/projects" />
 
-              <StatCard
-                label="Pengalaman"
-                value="03"
-                description="riwayat pekerjaan"
-                href="/admin/experience"
-              />
-            </section>
+      <div>
+        <div class="hidden grid-cols-[1fr_150px_130px] px-1 py-2 font-mono text-[11px] text-paper/30 sm:grid">
+          <span>proyek</span>
+          <span>status</span>
+          <span>dibuat</span>
+        </div>
 
-            <section class="mt-12">
-              <SectionHeader
-                eyebrow="Portofolio"
-                title="Proyek terbaru"
-                href="/admin/projects"
-              />
+        <a
+          href="/admin/projects"
+          class="grid gap-3 border-t border-paper/10 px-1 py-4 transition hover:bg-paper/5 sm:grid-cols-[1fr_150px_130px] sm:items-center"
+        >
+          <div>
+            <p class="text-sm font-medium text-paper">Website Portofolio</p>
 
-              <div class="overflow-hidden rounded-xl border border-white/10">
-                <div class="hidden grid-cols-[1fr_150px_130px] border-b border-white/10 px-5 py-3 text-[10px] uppercase tracking-widest text-white/30 sm:grid">
-                  <span>Proyek</span>
+            <p class="mt-1 text-xs text-paper/35">Website pribadi dan CMS</p>
+          </div>
 
-                  <span>Status</span>
+          <StatusBadge status="Dalam proses" />
 
-                  <span>Dibuat</span>
-                </div>
+          <span class="font-mono text-xs text-paper/35">26 Sep 2026</span>
+        </a>
 
-                <a
-                  href="/admin/projects"
-                  class="grid gap-3 border-b border-white/10 px-5 py-4 transition last:border-0 hover:bg-white/[0.025] sm:grid-cols-[1fr_150px_130px] sm:items-center"
-                >
-                  <div>
-                    <p class="text-sm font-medium">Website Portofolio</p>
+        <a
+          href="/admin/projects"
+          class="grid gap-3 border-t border-paper/10 px-1 py-4 transition hover:bg-paper/5 sm:grid-cols-[1fr_150px_130px] sm:items-center"
+        >
+          <div>
+            <p class="text-sm font-medium text-paper">Kantongin</p>
 
-                    <p class="mt-1 text-xs text-white/30">
-                      Website pribadi dan CMS
-                    </p>
-                  </div>
+            <p class="mt-1 text-xs text-paper/35">Aplikasi dompet digital</p>
+          </div>
 
-                  <StatusBadge status="Dalam proses" />
+          <StatusBadge status="Selesai" />
 
-                  <span class="text-xs text-white/30">26 Sep 2026</span>
-                </a>
+          <span class="font-mono text-xs text-paper/35">20 Sep 2026</span>
+        </a>
+      </div>
+    </section>
 
-                <a
-                  href="/admin/projects"
-                  class="grid gap-3 border-b border-white/10 px-5 py-4 transition last:border-0 hover:bg-white/[0.025] sm:grid-cols-[1fr_150px_130px] sm:items-center"
-                >
-                  <div>
-                    <p class="text-sm font-medium">Kantongin</p>
+    <section class="mt-12 pb-12">
+      <SectionHeader title="Pengalaman terbaru" href="/admin/experience" />
 
-                    <p class="mt-1 text-xs text-white/30">
-                      Aplikasi dompet digital
-                    </p>
-                  </div>
+      <div class="border-t border-paper/10">
+        <div class="grid gap-1 border-b border-paper/10 py-4 sm:grid-cols-[1fr_180px]">
+          <div>
+            <p class="text-sm font-medium text-paper">Website Programmer</p>
 
-                  <StatusBadge status="Selesai" />
+            <p class="mt-1 text-sm text-paper/50">Edzillen</p>
+          </div>
 
-                  <span class="text-xs text-white/30">20 Sep 2026</span>
-                </a>
-              </div>
-            </section>
-
-            <section class="mt-12 pb-12">
-              <SectionHeader
-                eyebrow="Karier"
-                title="Pengalaman terbaru"
-                href="/admin/experience"
-              />
-
-              <div class="border-l border-white/10 pl-6">
-                <div class="relative">
-                  <span class="absolute -left-[29px] top-1.5 h-1.5 w-1.5 rounded-full bg-white" />
-
-                  <p class="text-sm font-medium">Website Programmer</p>
-
-                  <p class="mt-1 text-sm text-white/50">Edzillen</p>
-
-                  <p class="mt-2 text-xs text-white/30">
-                    Januari 2025 — Maret 2025
-                  </p>
-                </div>
-              </div>
-            </section>
-          </main>
+          <p class="font-mono text-xs text-paper/35 sm:text-right">
+            Jan 2025 — Mar 2025
+          </p>
         </div>
       </div>
-    </div>
-  </Layout>
+    </section>
+  </div>
 );
