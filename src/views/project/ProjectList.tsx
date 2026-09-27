@@ -2,6 +2,7 @@ import { Html } from "@elysiajs/html";
 import { StatusBadge } from "../../components/StatusBadge";
 import { formatDate } from "../../util/dayFormat";
 import type { Project } from "../../types";
+import { Button } from "../../components/Button";
 interface ProjectProps {
   projects: Project[];
 }
@@ -17,12 +18,9 @@ export const ProjectList = ({ projects }: ProjectProps) => (
         </h1>
       </div>
 
-      <a
-        href="/admin/projects/new"
-        class="flex h-10 items-center border border-paper/20 px-4 font-mono text-xs transition-colors hover:border-accent hover:bg-accent hover:text-ink"
-      >
+      <Button href="/admin/projects/new" variant="primary">
         + Tambah proyek
-      </a>
+      </Button>
     </section>
 
     <section>
@@ -58,7 +56,7 @@ export const ProjectList = ({ projects }: ProjectProps) => (
 
               <form
                 action={`/admin/projects/${p.id}/delete`}
-                method="DELETE"
+                method="POST"
                 class="inline"
               >
                 <button
@@ -75,13 +73,10 @@ export const ProjectList = ({ projects }: ProjectProps) => (
       )}
     </section>
 
-    <div class="mt-8">
-      <a
-        href="/admin/dashboard"
-        class="flex items-center gap-1 text-sm text-paper/40 transition hover:text-accent"
-      >
+    <div class="mt-8 w-fit">
+      <Button href="/admin/dashboard" variant="secondary">
         Kembali ke dashboard
-      </a>
+      </Button>
     </div>
   </section>
 );

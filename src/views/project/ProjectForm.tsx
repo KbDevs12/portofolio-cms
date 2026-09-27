@@ -1,5 +1,6 @@
 import { Html } from "@elysiajs/html";
 import { DashboardLayout } from "../layout/DashboardLayout";
+import { Button } from "../../components/Button";
 
 export const ProjectForm = () => (
   <section>
@@ -86,19 +87,13 @@ export const ProjectForm = () => (
       </div>
 
       <div class="flex justify-end gap-6 pt-4">
-        <a
-          href="/admin/projects"
-          class="flex items-center text-sm text-paper/40 transition hover:text-paper"
-        >
+        <Button href="/admin/projects" variant="destructive">
           Batal
-        </a>
+        </Button>
 
-        <button
-          type="submit"
-          class="flex h-11 items-center border border-paper/20 px-5 font-mono text-xs transition-colors hover:border-accent hover:bg-accent hover:text-ink"
-        >
+        <Button type="submit" variant="primary">
           Simpan proyek
-        </button>
+        </Button>
       </div>
     </form>
   </section>

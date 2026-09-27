@@ -1,5 +1,6 @@
 import { Html } from "@elysiajs/html";
 import type { Project, ProjectAspects } from "../../types";
+import { Button } from "../../components/Button";
 
 interface ProjectAspectsProps {
   project: Project;
@@ -20,12 +21,10 @@ export const ProjectAspectsPage = ({
           Proyek: <span class="font-semibold">{project.title}</span>
         </p>
       </div>
-      <a
-        href="/admin/dashboard"
-        class="flex items-center gap-1 text-sm text-paper/40 transition hover:text-accent"
-      >
-        Kembali ke Dashboard
-      </a>
+      <Button href="/admin/projects" variant="secondary">
+        {" "}
+        Kembali ke Daftar Proyek
+      </Button>
     </div>
     <section class="mb-10">
       <h2 class="text-2xl font-semibold border-b border-paper/10 pb-2">
@@ -46,7 +45,9 @@ export const ProjectAspectsPage = ({
                   {item.tech_stack.map((tech, _) => (
                     <span
                       id={_}
-                      class="bg-accent text-paper px-2 py-1 rounded-2xl hover:opacity-65 transition duration-300 ease-in hover:cursor-pointer"
+                      class="
+                      inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-3 py-1 font-mono text-[11px] font-medium text-accent
+                      transition-all duration-200 hover:border-accent/50 hover:bg-accent/15 hover:text-paper hover:cursor-pointer"
                     >
                       {tech}
                     </span>
@@ -57,13 +58,13 @@ export const ProjectAspectsPage = ({
                 action={`/admin/projects/${project.id}/aspects/${item.id}/delete`}
                 method="POST"
               >
-                <button
+                <Button
                   type="submit"
-                  class="text-red-600 hover:underline text-sm"
+                  variant="destructive"
                   onclick="return confirm('Hapus aspek ini?')"
                 >
                   Hapus
-                </button>
+                </Button>
               </form>
             </div>
           ))}
