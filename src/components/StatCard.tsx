@@ -14,19 +14,13 @@ export const StatCard = ({
 }: StatCardProps) => {
   const content = (
     <>
-      <div class="flex items-start justify-between">
-        <span class="text-xs text-white/40">{label}</span>
+      <p class="font-mono text-4xl font-medium tracking-tight text-paper">
+        {value}
+      </p>
 
-        {href && (
-          <span class="text-white/20 transition group-hover:text-white">→</span>
-        )}
-      </div>
+      <p class="mt-2 text-sm text-paper/60">{description}</p>
 
-      <div class="mt-7">
-        <p class="text-3xl font-semibold tracking-tight">{value}</p>
-
-        <p class="mt-1 text-sm text-white/40">{description}</p>
-      </div>
+      <p class="mt-0.5 text-[11px] text-paper/30">{label}</p>
     </>
   );
 
@@ -34,12 +28,12 @@ export const StatCard = ({
     return (
       <a
         href={href}
-        class="group bg-[#0d0d0d] p-6 transition hover:bg-[#111111]"
+        class="flex flex-1 flex-col px-6 py-6 transition hover:bg-paper/5"
       >
         {content}
       </a>
     );
   }
 
-  return <div class="bg-[#0d0d0d] p-6">{content}</div>;
+  return <div class="flex flex-1 flex-col px-6 py-6">{content}</div>;
 };
