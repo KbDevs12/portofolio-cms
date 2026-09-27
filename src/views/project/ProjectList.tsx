@@ -1,21 +1,10 @@
 import { Html } from "@elysiajs/html";
-import { DashboardLayout } from "../layout/DashboardLayout";
 import { StatusBadge } from "../../components/StatusBadge";
+import { formatDate } from "../../util/dayFormat";
 import type { Project } from "../../types";
-
 interface ProjectProps {
   projects: Project[];
 }
-
-const formatDate = (iso: string) => {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return "-";
-  return date.toLocaleDateString("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-};
 
 export const ProjectList = ({ projects }: ProjectProps) => (
   <section>
