@@ -10,18 +10,27 @@ export interface Project {
 
 export interface Profile {
   full_name: string;
-  headline?: string;
-  bio?: string;
-  email?: string;
-  github_url?: string;
-  linkedin_url?: string;
-  updated_at?: string;
-  meta_title?: string;
-  meta_description?: string;
-  meta_keywords?: string;
+  headline: string | null;
+  bio: string | null;
+  email: string | null;
+  github_url: string | null;
+  linkedin_url: string | null;
+  updated_at: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  meta_keywords: string | null;
 }
 
-export interface Experience {}
+export interface Experience {
+  id: string;
+  company_name: string;
+  job_title: string;
+  start_date: string | null;
+  end_date: string | null;
+  is_current: boolean | null;
+  description: string | null;
+  created_at: string | null;
+}
 
 export interface ProjectAspects {
   id: string;
