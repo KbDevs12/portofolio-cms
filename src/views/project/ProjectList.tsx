@@ -58,7 +58,7 @@ export const ProjectList = ({ projects }: ProjectProps) => (
 
               <form
                 action={`/admin/projects/${p.id}/delete`}
-                method="POST"
+                method="DELETE"
                 class="inline"
               >
                 <button
@@ -80,19 +80,6 @@ export const ProjectList = ({ projects }: ProjectProps) => (
         href="/admin/dashboard"
         class="flex items-center gap-1 text-sm text-paper/40 transition hover:text-accent"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          class="h-3 w-3"
-        >
-          <path
-            d="M15 6l-6 6 6 6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
         Kembali ke dashboard
       </a>
     </div>
