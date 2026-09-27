@@ -108,7 +108,12 @@ export const Sidebar = ({ pathname }: { pathname: string }) => {
 
         <div class="border-t border-paper/10 p-4">
           <form action="/admin/logout" method="POST">
-            <button type="submit" class={"font-mono text-[11px] text-paper/30"}>
+            <button
+              type="submit"
+              class={
+                "font-mono text-[11px] text-paper/30 transition duration-300 hover:text-red-500"
+              }
+            >
               Logout
             </button>
           </form>
