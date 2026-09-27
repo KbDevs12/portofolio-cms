@@ -28,6 +28,6 @@ export interface ProjectAspects {
   aspect_title: string;
   description: string;
   tech_stack: string[];
-  repo_url?: string;
+  repo_url: string | null;
   sort_order: string;
 }
