@@ -24,6 +24,7 @@ export interface Profile {
 export interface Experience {}
 
 export interface ProjectAspects {
+  id: string;
   project_id: string;
   aspect_title: string;
   description: string;
