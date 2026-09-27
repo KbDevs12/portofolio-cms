@@ -3,7 +3,7 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun --watch src/index.tsx",
+    "dev": "bun --watch src/index.ts",
     "build:css": "tailwindcss -i ./src/styles/app.css -o ./public/css/app.css --minify",
     "watch:css": "tailwindcss -i ./src/styles/app.css -o ./public/css/app.css --watch"
   },
