@@ -9,6 +9,8 @@ import { ProjectList } from "../views/project/ProjectList";
 import { ProjectForm } from "../views/project/ProjectForm";
 import { DashboardLayout } from "../views/layout/DashboardLayout";
 import { ProjectAspectsPage } from "../views/project/ProjectAspect";
+import { ExperienceList } from "../views/experience/ExperienceList";
+import { ExperienceForm } from "../views/experience/ExperienceForm";
 
 const getPathname = (request: Request) => new URL(request.url).pathname;
 
@@ -130,6 +132,50 @@ export const adminController = new Elysia({ prefix: "/admin" })
           },
         )
 
+        .get("/projects/:id/edit", async ({ params: { id }, request }) => {
+          const pathname = getPathname(request);
+          const { data, error } = await supabase
+            .from("projects")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+          if (error) return `Gagal mengambil data: ${error.message}`;
+
+          return (
+            <DashboardLayout title="Edit Proyek" pathname={pathname}>
+              <ProjectForm mode="edit" project={data} />
+            </DashboardLayout>
+          );
+        })
+
+        .post(
+          "/projects/:id/edit",
+          async ({ params: { id }, body }) => {
+            const { title, slug, summary, status } = body;
+
+            const { error: insertError } = await supabase
+              .from("projects")
+              .update([{ title, slug, summary, status }])
+              .eq("id", id);
+
+            if (insertError) {
+              return `Gagal menyimpan project: ${insertError.message}`;
+            }
+
+            return redirect("/admin/projects");
+          },
+          {
+            params: t.Object({ id: t.String() }),
+            body: t.Object({
+              title: t.String(),
+              slug: t.String(),
+              summary: t.Optional(t.String()),
+              status: t.String(),
+            }),
+          },
+        )
+
         .post("/projects/:id/delete", async ({ params: { id } }) => {
           const { error: deleteError } = await supabase
             .from("projects")
@@ -142,6 +188,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
 
           return redirect("/admin/projects");
         })
+
         .get(
           "/projects/:id/aspects",
           async ({ params: { id }, request }) => {
@@ -175,6 +222,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
             params: t.Object({ id: t.String() }),
           },
         )
+
         .post(
           "/projects/:id/aspects",
           async ({ params: { id }, body }) => {
@@ -218,6 +266,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
             }),
           },
         )
+
         .post(
           "/projects/:id/aspects/:aspectId/delete",
           async ({ params: { id, aspectId } }) => {
@@ -230,6 +279,114 @@ export const adminController = new Elysia({ prefix: "/admin" })
             if (error) return `Gagal menghapus data: ${error.message}`;
 
             return redirect(`/admin/projects/${id}/aspects`);
+          },
+        )
+
+        .get("/experiences", async ({ request }) => {
+          const pathname = getPathname(request);
+          const { data, error } = await supabase
+            .from("experiences")
+            .select("*")
+            .order("created_at", { ascending: true });
+
+          if (error) return `Gagal mengambil data: ${error.message}`;
+
+          return (
+            <DashboardLayout title="Daftar Pengalaman" pathname={pathname}>
+              <ExperienceList experiences={data} />
+            </DashboardLayout>
+          );
+        })
+
+        .get("/experiences/new", async ({ request }) => {
+          const pathname = getPathname(request);
+
+          return (
+            <DashboardLayout title="Tambah Pengalaman" pathname={pathname}>
+              <ExperienceForm />
+            </DashboardLayout>
+          );
+        })
+
+        .post(
+          "/experiences",
+          async ({ body }) => {
+            const {
+              company_name,
+              job_title,
+              start_date,
+              end_date,
+              is_current,
+              description,
+            } = body;
+
+            const isActive = is_current === "true";
+
+            const { error } = await supabase.from("experiences").insert({
+              company_name,
+              job_title,
+              start_date,
+              end_date: end_date || null,
+              is_current: isActive,
+              description,
+            });
+
+            if (error) return `Gagal update data: ${error.message}`;
+
+            return redirect("/admin/experiences");
+          },
+          {
+            body: t.Object({
+              company_name: t.String(),
+              job_title: t.String(),
+              start_date: t.String(),
+              end_date: t.Optional(t.String()),
+              is_current: t.String(),
+              description: t.String(),
+            }),
+          },
+        )
+
+        .post(
+          "/experiences/:id/edit",
+          async ({ params: { id }, body }) => {
+            const {
+              company_name,
+              job_title,
+              start_date,
+              end_date,
+              is_current,
+              description,
+            } = body;
+
+            const isActive = is_current === "true";
+
+            const { error } = await supabase
+              .from("experiences")
+              .update({
+                company_name,
+                job_title,
+                start_date,
+                end_date: end_date || null,
+                is_current: isActive,
+                description,
+              })
+              .eq("id", id);
+
+            if (error) return `Gagal update data: ${error.message}`;
+
+            return redirect("/admin/experiences");
+          },
+          {
+            params: t.Object({ id: t.String() }),
+            body: t.Object({
+              company_name: t.String(),
+              job_title: t.String(),
+              start_date: t.String(),
+              end_date: t.Optional(t.String()),
+              is_current: t.String(),
+              description: t.String(),
+            }),
           },
         ),
   );
