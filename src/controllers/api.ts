@@ -35,4 +35,17 @@ export const apiController = new Elysia({ prefix: "/api" })
 
     if (error) return { success: false, error: error.message };
     return { success: true, data };
+  })
+
+  .get("tech_stack", async () => {
+    const { data, error } = await supabase
+      .from("project_aspects")
+      .select("tech_stack");
+
+    const uniqueTechStack: string[] = [
+      ...new Set(data?.flatMap((item) => item.tech_stack)),
+    ];
+
+    if (error) return { success: false, error: error.message };
+    return { success: true, data: { uniqueTechStack } };
   });
