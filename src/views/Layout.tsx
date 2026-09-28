@@ -15,6 +15,7 @@ export const Layout = ({
 
       <link rel="stylesheet" href="/css/app.css" />
       <script src="/js/datepicker.js"></script>
+      <script src="/js/char-counter.js"></script>
     </head>
 
     <body class="min-h-screen bg-ink font-serif text-paper antialiased">
