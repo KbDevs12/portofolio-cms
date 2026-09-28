@@ -28,6 +28,7 @@ export interface Experience {
   start_date: string | null;
   end_date: string | null;
   is_current: boolean | null;
+  thumbnail_url: string | null;
   description: string | null;
   created_at: string | null;
 }
