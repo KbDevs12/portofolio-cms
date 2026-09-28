@@ -20,5 +20,17 @@ export const Layout = ({
     <body class="min-h-screen bg-ink font-serif text-paper antialiased">
       {children}
     </body>
+    <script>
+      {`
+    document.addEventListener("click", (event) => {
+    const details = event.target.closest("details");
+
+    document.querySelectorAll("details[open]").forEach((item) => {
+      if (item !== details) {
+        item.removeAttribute("open");
+      }
+    });
+  });`}
+    </script>
   </html>
 );
