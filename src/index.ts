@@ -17,15 +17,13 @@ const app = new Elysia()
       methods: ["GET", "OPTIONS"],
     }),
   )
-  .use(setup)
-  .use(
-    staticPlugin({
-      assets: "public",
-      prefix: "",
-    }),
-  )
-  .use(apiController)
-  .use(adminController);
+  .use(setup);
+
+if (!process.env.VERCEL) {
+  app.use(staticPlugin({ assets: "public", prefix: "" }));
+}
+
+app.use(apiController).use(adminController);
 
 if (!process.env.VERCEL) {
   app.listen(3000);
