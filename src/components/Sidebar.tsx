@@ -53,7 +53,7 @@ export const Sidebar = ({ pathname }: { pathname: string }) => {
     },
     {
       label: "Pengalaman",
-      href: "/admin/experience",
+      href: "/admin/experiences",
       icon: `<svg
                 viewBox="0 0 24 24"
                 fill="none"
