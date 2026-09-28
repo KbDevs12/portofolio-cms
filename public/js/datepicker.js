@@ -58,6 +58,17 @@
     );
   }
 
+  function clearSelection(root, state, placeholder) {
+    state.selected = null;
+    const hidden = root.querySelector("[data-dp-value]");
+    const display = root.querySelector("[data-dp-display]");
+    hidden.value = "";
+    display.textContent =
+      placeholder || display.dataset.dpPlaceholder || "Pilih tanggal";
+    display.classList.remove("text-paper");
+    display.classList.add("text-paper/40");
+  }
+
   function openPanel(root) {
     root.querySelector("[data-dp-panel]").classList.remove("hidden");
     root.setAttribute("data-dp-open", "true");
@@ -169,9 +180,16 @@
     }
   }
 
+  const registry = new WeakMap();
+
   function initOne(root) {
     if (root.dataset.dpInitialized) return;
     root.dataset.dpInitialized = "true";
+
+    const displayEl = root.querySelector("[data-dp-display]");
+    if (displayEl && !displayEl.dataset.dpPlaceholder) {
+      displayEl.dataset.dpPlaceholder = displayEl.textContent.trim();
+    }
 
     const initialISO = root.querySelector("[data-dp-value]").value;
     const parsed = parseISO(initialISO);
@@ -183,11 +201,14 @@
       viewMonth: parsed ? parsed.m : today.getMonth(),
     };
 
+    registry.set(root, state);
+
     renderMonthLabel(root, state);
     buildDaysGrid(root, state);
 
     root.querySelector("[data-dp-trigger]").addEventListener("click", (e) => {
       e.stopPropagation();
+      if (e.currentTarget.disabled) return;
       togglePanel(root);
     });
 
@@ -220,6 +241,33 @@
     (scope || document).querySelectorAll("[data-datepicker]").forEach(initOne);
   }
 
+  function setDisabled(target, disabled) {
+    const root =
+      target.matches && target.matches("[data-datepicker]")
+        ? target
+        : target.querySelector("[data-datepicker]");
+    if (!root) return;
+
+    const trigger = root.querySelector("[data-dp-trigger]");
+    const hidden = root.querySelector("[data-dp-value]");
+    const state = registry.get(root);
+
+    if (!trigger || !hidden) return;
+
+    trigger.disabled = disabled;
+    hidden.disabled = disabled;
+    root.classList.toggle("opacity-50", disabled);
+    root.classList.toggle("pointer-events-none", disabled);
+
+    if (disabled) {
+      closePanel(root);
+      if (state) {
+        clearSelection(root, state);
+        buildDaysGrid(root, state);
+      }
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => initAll(document));
   document.addEventListener("click", () => {
     document
@@ -227,5 +275,5 @@
       .forEach(closePanel);
   });
 
-  window.DatePicker = { init: initAll };
+  window.DatePicker = { init: initAll, setDisabled };
 })();
