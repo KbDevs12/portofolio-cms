@@ -20,7 +20,7 @@ export const Sidebar = ({ pathname }: { pathname: string }) => {
     },
     {
       label: "Profil",
-      href: "/admin/profil",
+      href: "/admin/profile",
       icon: `<svg
                 viewBox="0 0 24 24"
                 fill="none"
