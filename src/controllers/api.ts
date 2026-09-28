@@ -42,10 +42,11 @@ export const apiController = new Elysia({ prefix: "/api" })
       .from("project_aspects")
       .select("tech_stack");
 
+    if (error) return { success: false, error: error.message };
+
     const uniqueTechStack: string[] = [
-      ...new Set(data?.flatMap((item) => item.tech_stack)),
+      ...new Set((data ?? []).flatMap((item) => item.tech_stack ?? [])),
     ];
 
-    if (error) return { success: false, error: error.message };
     return { success: true, data: { uniqueTechStack } };
   });
