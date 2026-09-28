@@ -2,6 +2,7 @@ import { Html } from "@elysiajs/html";
 import type { Profile } from "../types";
 import { TextField } from "../components/TextField";
 import { TextArea } from "../components/TextArea";
+import { Button } from "../components/Button";
 
 type ProfileFormProps = {
   profile?: Profile | null;
@@ -40,7 +41,7 @@ export const ProfileForm = ({
       action={action}
       class="mx-auto flex max-w-3xl flex-col gap-8"
     >
-      {profile?.id && <input type="hidden" value={profile?.id} />}
+      {profile?.id && <input type="hidden" value={profile?.id} name="id" />}
       <section class="rounded-xl border border-paper/10 p-6">
         <SectionHeading index="01" title="Profil" />
 
@@ -132,12 +133,9 @@ export const ProfileForm = ({
             : "Belum pernah disimpan"}
         </p>
 
-        <button
-          type="submit"
-          class="rounded-lg bg-accent px-5 py-2 font-mono text-sm font-medium text-ink transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
-        >
+        <Button type="submit" variant="primary">
           Simpan perubahan
-        </button>
+        </Button>
       </div>
     </form>
   );
