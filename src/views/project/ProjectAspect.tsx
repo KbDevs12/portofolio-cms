@@ -31,7 +31,7 @@ export const ProjectAspectsPage = ({
         Aspek / Role saat ini
       </h2>
       {aspects.length === 0 ? (
-        <p class="text-paper/35 text-center mt-[80px]">
+        <p class="text-paper/35 text-center mt-20">
           Belum ada aspek. Silahkan tambah dibawah
         </p>
       ) : (
@@ -57,6 +57,7 @@ export const ProjectAspectsPage = ({
               <form
                 action={`/admin/projects/${project.id}/aspects/${item.id}/delete`}
                 method="POST"
+                class="p-2"
               >
                 <Button
                   type="submit"
