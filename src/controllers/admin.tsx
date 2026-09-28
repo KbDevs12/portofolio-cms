@@ -326,7 +326,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
               company_name,
               job_title,
               start_date,
-              end_date: end_date || null,
+              end_date: isActive ? null : end_date,
               is_current: isActive,
               description,
             });
@@ -344,6 +344,30 @@ export const adminController = new Elysia({ prefix: "/admin" })
               is_current: t.String(),
               description: t.String(),
             }),
+          },
+        )
+
+        .get(
+          "/experiences/:id/edit",
+          async ({ params: { id }, request }) => {
+            const pathname = getPathname(request);
+
+            const { data, error } = await supabase
+              .from("experiences")
+              .select("*")
+              .eq("id", id)
+              .single();
+
+            if (error) return `Gagal mengambil data: ${error.message}`;
+
+            return (
+              <DashboardLayout pathname={pathname} title="Edit Pengalaman">
+                <ExperienceForm mode="edit" experience={data} />
+              </DashboardLayout>
+            );
+          },
+          {
+            params: t.Object({ id: t.String() }),
           },
         )
 
@@ -367,7 +391,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
                 company_name,
                 job_title,
                 start_date,
-                end_date: end_date || null,
+                end_date: isActive ? null : end_date,
                 is_current: isActive,
                 description,
               })
@@ -384,7 +408,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
               job_title: t.String(),
               start_date: t.String(),
               end_date: t.Optional(t.String()),
-              is_current: t.String(),
+              is_current: t.Optional(t.String()),
               description: t.String(),
             }),
           },
