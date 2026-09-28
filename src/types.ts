@@ -9,6 +9,7 @@ export interface Project {
 }
 
 export interface Profile {
+  id: string | null;
   full_name: string;
   headline: string | null;
   bio: string | null;
