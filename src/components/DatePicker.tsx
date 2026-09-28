@@ -6,6 +6,7 @@ type DatePickerProps = {
   placeholder?: string;
   label?: string;
   required?: boolean;
+  disabled?: boolean;
 };
 
 export const DatePicker = ({
@@ -14,29 +15,39 @@ export const DatePicker = ({
   placeholder = "Pilih tanggal",
   label,
   required = false,
+  disabled = false,
 }: DatePickerProps) => (
   <div class="flex flex-col gap-1.5">
     {label && <label class="font-mono text-sm text-paper/70">{label}</label>}
 
-    <div class="relative inline-block w-full max-w-xs" data-datepicker>
+    <div
+      class={`relative inline-block w-full ${
+        disabled ? "pointer-events-none opacity-50" : ""
+      }`}
+      data-datepicker
+    >
       <input
         type="hidden"
         name={name}
-        value={value}
-        required={required}
+        value={disabled ? "" : value}
+        required={required && !disabled}
+        disabled={disabled}
         data-dp-value
       />
 
       <button
         type="button"
-        class="flex w-full items-center justify-between gap-2 rounded-lg border border-paper/15 bg-panel px-3 py-2 text-left font-serif text-paper transition-colors hover:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent"
+        disabled={disabled}
+        class="flex w-full items-center justify-between gap-2 rounded-lg border border-paper/15 bg-panel px-3 py-2 text-left font-serif text-paper transition-colors hover:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent disabled:cursor-not-allowed disabled:hover:border-paper/15"
         data-dp-trigger
       >
         <span
-          class={`truncate ${value ? "text-paper" : "text-paper/40"}`}
+          class={`min-w-0 flex-1 truncate ${
+            value && !disabled ? "text-paper" : "text-paper/40"
+          }`}
           data-dp-display
         >
-          {value || placeholder}
+          {disabled ? placeholder : value || placeholder}
         </span>
 
         <svg
