@@ -1,4 +1,4 @@
-function dayFormat(date: Date) {
+function dayFormat(date: Date): string {
   return date.toLocaleDateString("id-ID", {
     day: "2-digit",
     month: "short",
@@ -6,7 +6,7 @@ function dayFormat(date: Date) {
   });
 }
 
-function formatDate(iso: string) {
+function formatDate(iso: string): string {
   const date = new Date(iso);
 
   if (Number.isNaN(date.getTime())) return "-";
@@ -18,6 +18,16 @@ function formatDate(iso: string) {
   });
 }
 
-export { dayFormat, formatDate };
+function formatDateV2(date: string | null): string {
+  const formatted = new Intl.DateTimeFormat("id-ID", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(date as string));
+
+  return formatted;
+}
+
+export { dayFormat, formatDate, formatDateV2 };
 
 export default { dayFormat };
