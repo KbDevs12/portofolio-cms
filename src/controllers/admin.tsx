@@ -11,6 +11,8 @@ import { DashboardLayout } from "../views/layout/DashboardLayout";
 import { ProjectAspectsPage } from "../views/project/ProjectAspect";
 import { ExperienceList } from "../views/experience/ExperienceList";
 import { ExperienceForm } from "../views/experience/ExperienceForm";
+import { ProfileForm } from "../views/ProfileForm";
+import { Profile } from "../types";
 
 const getPathname = (request: Request) => new URL(request.url).pathname;
 
@@ -410,6 +412,94 @@ export const adminController = new Elysia({ prefix: "/admin" })
               end_date: t.Optional(t.String()),
               is_current: t.Optional(t.String()),
               description: t.String(),
+            }),
+          },
+        )
+
+        .get("/profile", async ({ request }) => {
+          const pathname = getPathname(request);
+
+          const { data, error } = await supabase
+            .from("profile")
+            .select("*")
+            .limit(1)
+            .maybeSingle();
+
+          if (error) return `Gagal mengambil data: ${error.message}`;
+
+          return (
+            <DashboardLayout title="Profil" pathname={pathname}>
+              <ProfileForm profile={(data as Profile) || null} />
+            </DashboardLayout>
+          );
+        })
+
+        .post(
+          "/profile",
+          async ({ body }) => {
+            const {
+              id,
+              full_name,
+              headline,
+              bio,
+              email,
+              github_url,
+              linkedin_url,
+              meta_title,
+              meta_description,
+              meta_keywords,
+            } = body;
+
+            const payload = {
+              full_name,
+              headline,
+              bio,
+              email,
+              github_url,
+              linkedin_url,
+              meta_title,
+              meta_description,
+              meta_keywords,
+              updated_at: new Date().toISOString(),
+            };
+
+            if (id) {
+              const { error } = await supabase
+                .from("profile")
+                .update(payload)
+                .eq("id", id)
+                .select()
+                .single();
+
+              if (error) {
+                throw new Error(`Gagal update profile: ${error.message}`);
+              }
+            } else {
+              const { error } = await supabase
+                .from("profile")
+                .insert([payload])
+                .select()
+                .single();
+
+              if (error) {
+                throw new Error(`Gagal insert profile: ${error.message}`);
+              }
+            }
+
+            return redirect("/admin/dashboard");
+          },
+          {
+            body: t.Object({
+              id: t.Optional(t.String()),
+              full_name: t.String(),
+              headline: t.Optional(t.String()),
+              bio: t.Optional(t.String()),
+              email: t.Optional(t.String()),
+              github_url: t.Optional(t.String()),
+              linkedin_url: t.Optional(t.String()),
+              meta_title: t.Optional(t.String()),
+              meta_description: t.Optional(t.String()),
+              meta_keywords: t.Optional(t.String()),
             }),
           },
         ),
