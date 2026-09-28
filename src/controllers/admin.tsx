@@ -34,7 +34,7 @@ export const adminController = new Elysia({ prefix: "/admin" })
       return <LoginPage error="Password wajib diisi!" />;
     }
 
-    const valid = await verifyPassword(password, process.env.ADMIN_PASSWORD!);
+    const valid = await verifyPassword(password);
 
     if (!valid) {
       return <LoginPage error="Password Salah!" />;
