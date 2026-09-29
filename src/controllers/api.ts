@@ -28,7 +28,12 @@ export const apiController = new Elysia({ prefix: "/api" })
       .select(
         `
           *,
-          project_aspects (*)
+          project_aspects (
+          project_title,
+          description,
+          tech_stack,
+          repo_url
+          )
         `,
       )
       .order("created_at", { ascending: false });
