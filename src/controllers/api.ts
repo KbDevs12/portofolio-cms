@@ -29,7 +29,7 @@ export const apiController = new Elysia({ prefix: "/api" })
         `
           *,
           project_aspects (
-          project_title,
+          aspect_title,
           description,
           tech_stack,
           repo_url
